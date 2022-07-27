@@ -4,6 +4,8 @@ export const addHyphens = (uuid: string): string => [
   uuid.slice(12, 16),
   uuid.slice(16, 20),
   uuid.slice(20),
-].join('-');
+]
+  .filter(Boolean)
+  .join('-');
 
 export const removeHyphens = (uuid: string): string => uuid.replace(/-/g, '');
