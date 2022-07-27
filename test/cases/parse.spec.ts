@@ -17,7 +17,7 @@ interface TestCase {
 
 describe('parse', () => {
   const expectedBuffer = Buffer.from('1111222233334444aaaabbbb55556666', 'hex');
-  const expectedDefaultValidationOption = false;
+  const expectedDefaultValidationOption = true;
 
   const testCases: TestCase[] = [
     {

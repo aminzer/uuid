@@ -8,7 +8,7 @@ const isValidIgnoringHyphens = (uuid: string): boolean => (
 
 export default (
   uuid: string,
-  { validate = false }: { validate?: boolean } = {},
+  { validate = true }: { validate?: boolean } = {},
 ): Buffer => {
   if (validate && !isValidIgnoringHyphens(uuid)) {
     throw new Error(`Invalid UUID format: "${uuid}"`);
