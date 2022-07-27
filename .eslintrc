@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "plugins": [
+    "jest"
+  ],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": [
+    "dist/**/*",
+    "jest.config.js"
+  ],
+  "rules": {
+    "linebreak-style": "off"
+  }
+}

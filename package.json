@@ -1,0 +1,50 @@
+{
+  "name": "@aminzer/uuid",
+  "version": "1.0.0",
+  "description": "Set of UUID-related utilities",
+  "keywords": [
+    "uid",
+    "uuid",
+    "guid"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aminzer/uuid.git"
+  },
+  "license": "MIT",
+  "author": "aminzer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "build:watch": "npm run build -- --watch",
+    "husky:prepare": "husky install",
+    "lint": "eslint src/**/*.ts test/**/*.ts",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "run-s husky:prepare build",
+    "test": "jest"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^28.1.3",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "husky": "^8.0.1",
+    "jest": "^28.1.1",
+    "npm-run-all": "^4.1.5",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
