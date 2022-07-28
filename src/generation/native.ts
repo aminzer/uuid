@@ -7,7 +7,11 @@ try {
     ? window.crypto
     : require('crypto');
 
-  generateNative = crypto ? () => crypto.randomUUID() : null;
+  const randomUUID = crypto?.randomUUID;
+
+  if (typeof randomUUID === 'function') {
+    generateNative = randomUUID;
+  }
 } catch (err) {
   // ignored
 }
