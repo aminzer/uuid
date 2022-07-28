@@ -1,10 +1,19 @@
 import { generate, isValid } from '../../src';
 
-describe('generate', () => {
-  it('generates UUID string with hyphens', () => {
-    const generatedUuid = generate();
+const isUuidV4 = (uuid: string): boolean => (
+  uuid[14] === '4' && ['8', '9', 'a', 'b'].includes(uuid[19])
+);
 
-    expect(generatedUuid.length).toBe(36);
-    expect(isValid(generatedUuid, { hyphens: true })).toBe(true);
+describe('generate', () => {
+  const iterationCount = 10_000;
+
+  const uuids = Array(iterationCount).fill(null).map(() => generate());
+
+  it('returns valid UUID', () => {
+    expect(uuids.every((uuid) => isValid(uuid))).toBe(true);
+  });
+
+  it('returns v4 UUID', () => {
+    expect(uuids.every((uuid) => isUuidV4(uuid))).toBe(true);
   });
 });
