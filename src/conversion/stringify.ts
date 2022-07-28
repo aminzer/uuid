@@ -1,5 +1,5 @@
 import { isValid } from '../validation';
-import { addHyphens } from './utils';
+import { addHyphens } from '../utils';
 
 export default (
   uuidBuffer: Buffer,

@@ -1,3 +1,4 @@
-import { randomUUID } from 'crypto';
+import generateNative from './native';
+import generateRandom from './random';
 
-export default () => randomUUID();
+export default generateNative ?? generateRandom;

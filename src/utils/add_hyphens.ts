@@ -1,4 +1,4 @@
-export const addHyphens = (uuid: string): string => [
+export default (uuid: string): string => [
   uuid.slice(0, 8),
   uuid.slice(8, 12),
   uuid.slice(12, 16),
@@ -7,5 +7,3 @@ export const addHyphens = (uuid: string): string => [
 ]
   .filter(Boolean)
   .join('-');
-
-export const removeHyphens = (uuid: string): string => uuid.replace(/-/g, '');
