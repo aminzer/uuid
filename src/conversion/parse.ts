@@ -1,4 +1,4 @@
-import isValid from './is_valid';
+import { isValid } from '../validation';
 import { removeHyphens } from './utils';
 
 const isValidIgnoringHyphens = (uuid: string): boolean => (

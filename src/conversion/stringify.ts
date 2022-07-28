@@ -1,4 +1,4 @@
-import isValid from './is_valid';
+import { isValid } from '../validation';
 import { addHyphens } from './utils';
 
 export default (

@@ -1,6 +1,6 @@
 import { generateBuffer } from '../../src';
 
-jest.mock('../../src/generate', () => ({
+jest.mock('../../src/generation/generate', () => ({
   __esModule: true,
   default: jest.fn(() => '11112222-3333-4444-aaaa-bbbb55556666'),
 }));
