@@ -1,31 +1,25 @@
-const charGroup = (length: number): string => `[0-9a-f]{${length}}`;
-
-const charGroups: string[] = [
-  charGroup(8),
-  charGroup(4),
-  charGroup(4),
-  charGroup(4),
-  charGroup(12),
-];
-
-const createUuidRegex = (groupSeparator = '') => {
-  const charGroupSequence = charGroups.join(groupSeparator);
-
-  return new RegExp(`^${charGroupSequence}$`);
-};
-
-const UUID_WITH_HYPHENS_REGEX = createUuidRegex('-');
-const UUID_WITHOUT_HYPHENS_REGEX = createUuidRegex('');
+import {
+  UUID_WITH_HYPHENS_REGEX,
+  UUID_WITHOUT_HYPHENS_REGEX,
+} from './patterns';
 
 export default (
   uuid: any,
-  { hyphens = true }: { hyphens?: boolean } = {},
+  { hyphens = true }: { hyphens?: boolean | 'any' } = {},
 ): boolean => {
   if (typeof uuid !== 'string') {
     return false;
   }
 
-  const regex = hyphens ? UUID_WITH_HYPHENS_REGEX : UUID_WITHOUT_HYPHENS_REGEX;
+  let allowedPatterns: RegExp[] = [];
 
-  return regex.test(uuid.toLowerCase());
+  if (hyphens === true) {
+    allowedPatterns = [UUID_WITH_HYPHENS_REGEX];
+  } else if (hyphens === false) {
+    allowedPatterns = [UUID_WITHOUT_HYPHENS_REGEX];
+  } else {
+    allowedPatterns = [UUID_WITH_HYPHENS_REGEX, UUID_WITHOUT_HYPHENS_REGEX];
+  }
+
+  return allowedPatterns.some((regex) => regex.test(uuid.toLowerCase()));
 };

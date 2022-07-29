@@ -6,14 +6,13 @@ interface TestCase {
   expectedResult:
   | boolean
   | {
-    withHyphens: boolean;
-    withoutHyphens: boolean;
+    requireHyphens: boolean;
+    requireNoHyphens: boolean;
+    ignoreHyphens: boolean;
   };
 }
 
 describe('validation > isValid', () => {
-  const expectedDefaultHyphensOption = true;
-
   const testCases: TestCase[] = [
     {
       description: 'when input value is undefined',
@@ -39,49 +38,76 @@ describe('validation > isValid', () => {
       description: 'when input value is lowercase UUID with hyphens',
       inputValue: '11112222-3333-4444-aaaa-bbbb55550000',
       expectedResult: {
-        withHyphens: true,
-        withoutHyphens: false,
+        requireHyphens: true,
+        requireNoHyphens: false,
+        ignoreHyphens: true,
       },
     },
     {
       description: 'when input value is uppercase UUID with hyphens',
       inputValue: '11112222-3333-4444-AAAA-BBBB55550000',
       expectedResult: {
-        withHyphens: true,
-        withoutHyphens: false,
+        requireHyphens: true,
+        requireNoHyphens: false,
+        ignoreHyphens: true,
       },
     },
     {
       description: 'when input value is lowercase UUID without hyphens',
       inputValue: '1111222233334444aaaabbbb55550000',
       expectedResult: {
-        withHyphens: false,
-        withoutHyphens: true,
+        requireHyphens: false,
+        requireNoHyphens: true,
+        ignoreHyphens: true,
       },
     },
     {
       description: 'when input value is uppercase UUID without hyphens',
       inputValue: '1111222233334444AAAABBBB55550000',
       expectedResult: {
-        withHyphens: false,
-        withoutHyphens: true,
+        requireHyphens: false,
+        requireNoHyphens: true,
+        ignoreHyphens: true,
       },
     },
   ];
 
   testCases.forEach(({ description, inputValue, expectedResult }) => {
     describe(description, () => {
-      [undefined, true, false].forEach((hyphensOption) => {
+      const hyphensOptions: (boolean | any | undefined)[] = [
+        undefined,
+        true,
+        false,
+        'any',
+      ];
+
+      hyphensOptions.forEach((hyphensOption) => {
         describe(`when "hyphens" option is ${hyphensOption}`, () => {
           const options = hyphensOption === undefined
             ? undefined
             : { hyphens: hyphensOption };
 
-          const resultKey = hyphensOption ?? expectedDefaultHyphensOption
-            ? 'withHyphens'
-            : 'withoutHyphens';
+          let expectedValue = expectedResult;
 
-          const expectedValue = expectedResult?.[resultKey] ?? expectedResult;
+          if (typeof expectedResult === 'object') {
+            switch (hyphensOption) {
+              case undefined:
+              case true:
+                expectedValue = expectedResult.requireHyphens;
+                break;
+
+              case false:
+                expectedValue = expectedResult.requireNoHyphens;
+                break;
+
+              case 'any':
+                expectedValue = expectedResult.ignoreHyphens;
+                break;
+
+              default:
+                expectedValue = expectedResult;
+            }
+          }
 
           it(`returns ${expectedValue}`, () => {
             expect(isValid(inputValue, options)).toBe(expectedValue);
