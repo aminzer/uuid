@@ -35,6 +35,11 @@ import uuid from '@aminzer/uuid';
 console.log(uuid());
 ```
 
+##### Parameters
+
+* `options` (`object`, optional):
+    * `hyphens` (`boolean`, optional, `true` by default) - should generated string have UUID hyphen-separators or not.
+
 ##### Return value
 
 Generated UUID string.
