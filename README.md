@@ -105,7 +105,7 @@ console.log(parse('a2b8c6bf-f5e9-4231-8319-7d577b7f8064'));
 
 * `uuidString` (`string`, required) - string to be parsed.
 * `options` (`object`, optional):
-    * `validate` (`boolean`, optional, `true` by default) - validate input string before parsing or not.
+    * `validate` (`boolean`, optional, `true` by default) - validate input string format or not.
 
 ##### Return value
 
@@ -128,7 +128,7 @@ console.log(stringify(uuidBytes));
 
 * `uuidBytes` (`Uint8Array`, required) - bytes to be stringified.
 * `options` (`object`, optional):
-    * `validate` (`boolean`, optional, `true` by default) - validate input bytes before stringifying or not.
+    * `validate` (`boolean`, optional, `true` by default) - validate input bytes format or not.
     * `hyphens` (`boolean`, optional, `true` by default) - add hyphens into output string or not.
     * `uppercase` (`boolean`, optional, `false` by default) - convert output string to uppercase or not.
 
