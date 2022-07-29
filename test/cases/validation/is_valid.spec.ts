@@ -1,4 +1,4 @@
-import { isValid } from '../../src';
+import { isValid } from '../../../src';
 
 interface TestCase {
   description: string;
@@ -11,7 +11,7 @@ interface TestCase {
   };
 }
 
-describe('isValid', () => {
+describe('validation > isValid', () => {
   const expectedDefaultHyphensOption = true;
 
   const testCases: TestCase[] = [
@@ -32,12 +32,12 @@ describe('isValid', () => {
     },
     {
       description: 'when input value contains extra chars besides UUID',
-      inputValue: '11112222-3333-4444-aaaa-bbbb55556666-EXTRA-CHARS-HERE',
+      inputValue: '11112222-3333-4444-aaaa-bbbb55550000-EXTRA-CHARS-HERE',
       expectedResult: false,
     },
     {
       description: 'when input value is lowercase UUID with hyphens',
-      inputValue: '11112222-3333-4444-aaaa-bbbb55556666',
+      inputValue: '11112222-3333-4444-aaaa-bbbb55550000',
       expectedResult: {
         withHyphens: true,
         withoutHyphens: false,
@@ -45,7 +45,7 @@ describe('isValid', () => {
     },
     {
       description: 'when input value is uppercase UUID with hyphens',
-      inputValue: '11112222-3333-4444-AAAA-BBBB55556666',
+      inputValue: '11112222-3333-4444-AAAA-BBBB55550000',
       expectedResult: {
         withHyphens: true,
         withoutHyphens: false,
@@ -53,7 +53,7 @@ describe('isValid', () => {
     },
     {
       description: 'when input value is lowercase UUID without hyphens',
-      inputValue: '1111222233334444aaaabbbb55556666',
+      inputValue: '1111222233334444aaaabbbb55550000',
       expectedResult: {
         withHyphens: false,
         withoutHyphens: true,
@@ -61,7 +61,7 @@ describe('isValid', () => {
     },
     {
       description: 'when input value is uppercase UUID without hyphens',
-      inputValue: '1111222233334444AAAABBBB55556666',
+      inputValue: '1111222233334444AAAABBBB55550000',
       expectedResult: {
         withHyphens: false,
         withoutHyphens: true,

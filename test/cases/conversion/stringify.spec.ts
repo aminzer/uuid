@@ -1,4 +1,4 @@
-import { stringify } from '../../src';
+import { stringify } from '../../../src';
 
 interface ValidTestCase {
   options?: {
@@ -8,38 +8,38 @@ interface ValidTestCase {
   expectedResult: string;
 }
 
-describe('stringify', () => {
+describe('conversion > stringify', () => {
   describe('when input buffer contains data in UUID format', () => {
-    const validInputBuffer = Buffer.from('1111222233334444aaaabbbb55556666', 'hex');
+    const validInputBuffer = Buffer.from('1111222233334444aaaabbbb55550000', 'hex');
 
     const validTestCases: ValidTestCase[] = [
       {
         options: undefined,
-        expectedResult: '11112222-3333-4444-aaaa-bbbb55556666',
+        expectedResult: '11112222-3333-4444-aaaa-bbbb55550000',
       },
       {
         options: {},
-        expectedResult: '11112222-3333-4444-aaaa-bbbb55556666',
+        expectedResult: '11112222-3333-4444-aaaa-bbbb55550000',
       },
       {
         options: { hyphens: false },
-        expectedResult: '1111222233334444aaaabbbb55556666',
+        expectedResult: '1111222233334444aaaabbbb55550000',
       },
       {
         options: { hyphens: true },
-        expectedResult: '11112222-3333-4444-aaaa-bbbb55556666',
+        expectedResult: '11112222-3333-4444-aaaa-bbbb55550000',
       },
       {
         options: { uppercase: false },
-        expectedResult: '11112222-3333-4444-aaaa-bbbb55556666',
+        expectedResult: '11112222-3333-4444-aaaa-bbbb55550000',
       },
       {
         options: { uppercase: true },
-        expectedResult: '11112222-3333-4444-AAAA-BBBB55556666',
+        expectedResult: '11112222-3333-4444-AAAA-BBBB55550000',
       },
       {
         options: { hyphens: false, uppercase: true },
-        expectedResult: '1111222233334444AAAABBBB55556666',
+        expectedResult: '1111222233334444AAAABBBB55550000',
       },
     ];
     validTestCases.forEach(({ options, expectedResult }) => {

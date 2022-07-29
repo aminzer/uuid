@@ -1,10 +1,10 @@
-import { generate, isValid } from '../../src';
+import { generate, isValid } from '../../../src';
 
 const isUuidV4 = (uuid: string): boolean => (
   uuid[14] === '4' && ['8', '9', 'a', 'b'].includes(uuid[19])
 );
 
-describe('generate', () => {
+describe('generation > generate', () => {
   const iterationCount = 10_000;
 
   const uuids = Array(iterationCount).fill(null).map(() => generate());

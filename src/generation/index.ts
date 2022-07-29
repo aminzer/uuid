@@ -1,2 +1,2 @@
 export { default as generate } from './generate';
-export { default as generateBuffer } from './generate_buffer';
+export { default as generateBytes } from './generate_bytes';

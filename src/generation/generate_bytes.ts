@@ -1,4 +1,4 @@
 import { parse } from '../conversion';
 import generate from './generate';
 
-export default (): Buffer => parse(generate());
+export default (): Uint8Array => parse(generate());

@@ -1,8 +1,9 @@
-import { parse } from '../../src';
+import { parse } from '../../../src';
+import { areBytesEqual } from '../../utils/bytes';
 
 const EXPECT_ERROR = 'EXPECT_ERROR';
 
-type ExpectedResult = Buffer | typeof EXPECT_ERROR;
+type ExpectedResult = Uint8Array | typeof EXPECT_ERROR;
 
 interface TestCase {
   description: string;
@@ -15,44 +16,46 @@ interface TestCase {
   };
 }
 
-describe('parse', () => {
-  const expectedBuffer = Buffer.from('1111222233334444aaaabbbb55556666', 'hex');
+describe('conversion > parse', () => {
+  const expectedBytes = Buffer.from('1111222233334444aaaabbbb55550000', 'hex');
   const expectedDefaultValidationOption = true;
 
   const testCases: TestCase[] = [
     {
       description: 'when input value is string in wrong format',
-      inputValue: 'this-is-not-uuid',
+      inputValue: 'xxx-yyy-zzz',
       expectedResult: {
         withValidation: EXPECT_ERROR,
-        withoutValidation: Buffer.from('this-is-not-uuid', 'hex'),
+        withoutValidation: Buffer.alloc(16),
       },
     },
     {
-      description: 'when input value contains extra chars besides UUID',
-      inputValue: '11112222-3333-4444-aaaa-bbbb55556666-EXTRA-CHARS-HERE',
+      description: 'when input value contains extra chars after UUID',
+      inputValue: '11112222-3333-4444-aaaa-bbbb55550000-some-more-data',
       expectedResult: {
         withValidation: EXPECT_ERROR,
-        withoutValidation: Buffer.from(
-          '1111222233334444aaaabbbb55556666EXTRACHARSHERE',
-          'hex',
-        ),
+        withoutValidation: expectedBytes,
       },
+    },
+    {
+      description: 'when input value is lowercase UUID with hyphens',
+      inputValue: '11112222-3333-4444-aaaa-bbbb55550000',
+      expectedResult: expectedBytes,
     },
     {
       description: 'when input value is uppercase UUID with hyphens',
-      inputValue: '11112222-3333-4444-AAAA-BBBB55556666',
-      expectedResult: expectedBuffer,
+      inputValue: '11112222-3333-4444-AAAA-BBBB55550000',
+      expectedResult: expectedBytes,
     },
     {
       description: 'when input value is lowercase UUID without hyphens',
-      inputValue: '1111222233334444aaaabbbb55556666',
-      expectedResult: expectedBuffer,
+      inputValue: '1111222233334444aaaabbbb55550000',
+      expectedResult: expectedBytes,
     },
     {
       description: 'when input value is uppercase UUID without hyphens',
-      inputValue: '1111222233334444AAAABBBB55556666',
-      expectedResult: expectedBuffer,
+      inputValue: '1111222233334444AAAABBBB55550000',
+      expectedResult: expectedBytes,
     },
   ];
 
@@ -79,8 +82,11 @@ describe('parse', () => {
           } else {
             it('returns valid buffer', () => {
               expect(
-                Buffer.compare(parse(inputValue, options), expectedValue),
-              ).toBe(0);
+                areBytesEqual(
+                  parse(inputValue, options),
+                  expectedValue,
+                ),
+              ).toBe(true);
             });
           }
         });

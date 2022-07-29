@@ -44,32 +44,28 @@ Generated UUID string.
 ##### Overview
 
 Named alias of default export of the module.
+Following statements import the same function:
 
 ```javascript
+import uuid from '@aminzer/uuid';
 import { generate } from '@aminzer/uuid';
-
-console.log(generate());
 ```
 
-##### Return value
-
-Generated UUID string.
-
-> **generateBuffer**
+> **generateBytes**
 
 ##### Overview
 
-`generateBuffer` generates `Buffer` with UUID content.
+`generateBytes` generates `Uint8Array` with UUID content.
 
 ```javascript
-import { generateBuffer } from '@aminzer/uuid';
+import { generateBytes } from '@aminzer/uuid';
 
-console.log(generateBuffer().toString('hex'));
+console.log(generateBytes());
 ```
 
 ##### Return value
 
-`Buffer` with generated UUID content.
+`Uint8Array` with generated UUID content.
 
 > **isValid**
 
@@ -97,7 +93,7 @@ console.log(isValid('a2b8c6bf-f5e9-4231-8319-7d577b7f8064'));
 
 ##### Overview
 
-`parse` converts input UUID string to UUID `Buffer`.
+`parse` converts input UUID string to UUID `Uint8Array`.
 
 ```javascript
 import { parse } from '@aminzer/uuid';
@@ -107,35 +103,35 @@ console.log(parse('a2b8c6bf-f5e9-4231-8319-7d577b7f8064'));
 
 ##### Parameters
 
-* `uuidString` (`string`, required) - string that need to parsed.
+* `uuidString` (`string`, required) - string to be parsed.
 * `options` (`object`, optional):
     * `validate` (`boolean`, optional, `true` by default) - validate input string before parsing or not.
 
 ##### Return value
 
-UUID `Buffer` parsed from input UUID string.
+UUID `Uint8Array` parsed from input UUID string.
 
 > **stringify**
 
 ##### Overview
 
-`stringify` converts input UUID `Buffer` to UUID string.
+`stringify` converts input UUID `Uint8Array` to UUID string.
 
 ```javascript
-import { stringify, generateBuffer } from '@aminzer/uuid';
+import { stringify, generateBytes } from '@aminzer/uuid';
 
-const uuidBuffer = generateBuffer();
-console.log(stringify(uuidBuffer));
+const uuidBytes = generateBytes();
+console.log(stringify(uuidBytes));
 ```
 
 ##### Parameters
 
-* `uuidBuffer` (`Buffer`, required) - string that need to parsed.
+* `uuidBytes` (`Uint8Array`, required) - bytes to be stringified.
 * `options` (`object`, optional):
-    * `validate` (`boolean`, optional, `true` by default) - validate input buffer before stringifying or not.
+    * `validate` (`boolean`, optional, `true` by default) - validate input bytes before stringifying or not.
     * `hyphens` (`boolean`, optional, `true` by default) - add hyphens into output string or not.
     * `uppercase` (`boolean`, optional, `false` by default) - convert output string to uppercase or not.
 
 ##### Return value
 
-UUID string stringified from input UUID `Buffer`.
+UUID string stringified from input UUID `Uint8Array`.

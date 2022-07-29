@@ -2,7 +2,7 @@ import { isValid } from '../validation';
 import { addHyphens } from '../utils';
 
 export default (
-  uuidBuffer: Buffer,
+  uuidBytes: Uint8Array,
   {
     validate = true,
     hyphens = true,
@@ -13,7 +13,9 @@ export default (
     uppercase?: boolean;
   } = {},
 ): string => {
-  let uuid = uuidBuffer.toString('hex');
+  let uuid = [...uuidBytes]
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
 
   if (validate && !isValid(uuid, { hyphens: false })) {
     throw new Error(`Invalid UUID format: "${uuid}"`);
