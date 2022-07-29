@@ -1,6 +1,6 @@
 {
   "name": "@aminzer/uuid",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Set of UUID-related utilities",
   "keywords": [
     "uid",
